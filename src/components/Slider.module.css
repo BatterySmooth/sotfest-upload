@@ -1,0 +1,50 @@
+:root {
+  --thumb-size: 32px;
+  --slider-height: 10px;
+  --border-radius: 4px;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.slider {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  height: var(--slider-height);
+  border-radius: var(--border-radius);
+  background: var(--theme-primary-d50);
+  outline: none;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-runnable-track {
+  height: var(--slider-height);
+  border-radius: var(--border-radius);
+}
+.slider::-moz-range-track {
+  height: var(--slider-height);
+  border-radius: var(--border-radius);
+}
+
+.slider::-webkit-slider-thumb {
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  border-radius: 50%;
+  background: var(--theme-primary);
+  border: none;
+  cursor: pointer;
+  appearance: none;
+  margin-top: calc((var(--slider-height) - var(--thumb-size)) / 2);
+}
+.slider::-moz-range-thumb {
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  border-radius: 50%;
+  background: var(--theme-primary);
+  border: none;
+  cursor: pointer;
+}

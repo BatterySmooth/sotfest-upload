@@ -1,0 +1,14 @@
+.stack {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+/* Direction variants */
+.row {
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
+}

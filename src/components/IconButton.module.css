@@ -1,0 +1,36 @@
+.button {
+  width: 72px;
+  height: 72px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--theme-secondary);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
+  mask-image: url(../assets/socials-mask.png);
+  -webkit-mask-image: url(../assets/socials-mask.png);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+/* .button:active:not(:disabled) {
+  transform: scale(0.96);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+} */
+.button:disabled {
+  opacity: 0.6;
+  background-color: var(--theme-secondary-d60);
+  cursor: not-allowed;
+}
+.active:not(.disabled) {
+  background-color: var(--theme-primary);
+}
+.icon {
+  width: 65%;
+  height: 65%;
+  display: block;
+}

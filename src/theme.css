@@ -1,0 +1,47 @@
+/* For generating the shades and tints: */
+/* https://colorkit.co/color-shades-generator/eeaa2d/ */
+:root {
+  --theme-color: white;
+  --theme-background: rgb(6, 17, 24);
+  --theme-font-family: Cinzel, serif;
+  /* Primary theme palette */
+  --theme-primary-l90: #ecf7f6;
+  --theme-primary-l80: #d9efed;
+  --theme-primary-l70: #c6e7e5;
+  --theme-primary-l60: #b2dfdc;
+  --theme-primary-l50: #9fd7d3;
+  --theme-primary-l40: #8acfcb;
+  --theme-primary-l30: #74c7c2;
+  --theme-primary-l20: #5cbfba;
+  --theme-primary-l10: #3eb7b1;
+  --theme-primary: #01afa9;
+  --theme-primary-d10: #019892;
+  --theme-primary-d20: #01817c;
+  --theme-primary-d30: #006b67;
+  --theme-primary-d40: #005653;
+  --theme-primary-d50: #00413f;
+  --theme-primary-d60: #002e2c;
+  --theme-primary-d70: #001c1b;
+  --theme-primary-d80: #000b0a;
+  --theme-primary-d90: #000101;
+  /* Secondary theme palette */
+  --theme-secondary-l90: #fef7ed;
+  --theme-secondary-l80: #fdefdb;
+  --theme-secondary-l70: #fbe6c8;
+  --theme-secondary-l60: #fadeb6;
+  --theme-secondary-l50: #f8d6a3;
+  --theme-secondary-l40: #f6cd90;
+  --theme-secondary-l30: #f4c47c;
+  --theme-secondary-l20: #f2bc66;
+  --theme-secondary-l10: #f0b34d;
+  --theme-secondary: #EEAA2D;
+  --theme-secondary-d10: #cf9326;
+  --theme-secondary-d20: #b17d1f;
+  --theme-secondary-d30: #936818;
+  --theme-secondary-d40: #775311;
+  --theme-secondary-d50: #5c3f0b;
+  --theme-secondary-d60: #422d06;
+  --theme-secondary-d70: #2a1b02;
+  --theme-secondary-d80: #140b01;
+  --theme-secondary-d90: #030100;
+}

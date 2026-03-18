@@ -1,7 +1,7 @@
 {
   "name": "sotfest-upload",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -23,9 +23,14 @@
     "git:push": "git push origin HEAD && git push origin --tags"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/free-solid-svg-icons": "^7.2.0",
+    "@fortawesome/react-fontawesome": "^3.2.0",
     "gh-pages": "^6.3.0",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-colorful": "^5.6.1",
+    "react-dom": "^19.2.4",
+    "react-sketch-canvas": "^7.0.0-next.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
