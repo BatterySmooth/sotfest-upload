@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ReactSketchCanvas, type ReactSketchCanvasRef } from "react-sketch-canvas";
-import { faEraser, faPen, faRedo, faTrash, faUndo } from '@fortawesome/free-solid-svg-icons'
+import { faEraser, faPen, faRedo, faSave, faTrash, faUndo } from '@fortawesome/free-solid-svg-icons'
 import { Stack } from "@components/Stack";
 import { IconButton } from "@components/IconButton";
 import { ColourPicker } from "@components/ColourPicker";
@@ -42,6 +42,25 @@ export const DrawCanvas: React.FC = () => {
   const handleUndoClick = () => { canvasRef.current?.undo(); };
   const handleRedoClick = () => { canvasRef.current?.redo(); };
   const handleResetClick = () => { canvasRef.current?.resetCanvas(); };
+  const handleDownloadClick = async () => {
+    const svg = await canvasRef.current?.exportSvg();
+    if (svg) {
+      downloadSvg(svg, `${Date.now()}.svg`);
+      handleResetClick();
+    }
+  };
+
+  function downloadSvg(svgContent: string, filename: string) {
+    const blob = new Blob([svgContent], { type: "image/svg+xml" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
 
   useEffect(() => {
     setColourHistory((prev) => addColourToHistory(prev, penColor));
@@ -62,6 +81,7 @@ export const DrawCanvas: React.FC = () => {
             <ControlSeparator />
             <IconButton icon={faUndo} onClick={handleUndoClick} />
             <IconButton icon={faRedo} onClick={handleRedoClick} />
+            <IconButton icon={faSave} onClick={handleDownloadClick} />
             <ControlSeparator />
             <IconButton icon={faTrash} backgroundColor="darkred" onClick={handleResetClick} />
           </Stack>

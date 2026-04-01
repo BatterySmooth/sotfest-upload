@@ -9,7 +9,6 @@
     "build:major": "node scripts/incrementVersion.js major && git add package.json && npm run build",
     "build:minor": "node scripts/incrementVersion.js minor && git add package.json && npm run build",
     "build:patch": "node scripts/incrementVersion.js patch && git add package.json && npm run build",
-    "postbuild": "cp dist/index.html dist/404.html",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "git:checkdiff",
