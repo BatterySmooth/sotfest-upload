@@ -96,6 +96,7 @@ export const DrawCanvas: React.FC = () => {
         canvasColor="transparent"
         strokeColor={penColor}
         strokeWidth={strokeWidth}
+        eraserWidth={strokeWidth}
         readOnly={readOnly}
         style={{ touchAction: "none" }} />
     </div>
