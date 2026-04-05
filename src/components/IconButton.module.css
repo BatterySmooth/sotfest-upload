@@ -30,6 +30,7 @@
   background-color: var(--theme-primary);
 }
 .icon {
+  color: white;
   width: 65%;
   height: 65%;
   display: block;
