@@ -53,13 +53,39 @@ export const DrawCanvas: React.FC = () => {
   function downloadSvg(svgContent: string, filename: string) {
     const blob = new Blob([svgContent], { type: "image/svg+xml" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+
+    // Better iOS/iPad detection
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    if (isIOS) {
+      const file = new File([blob], filename, { type: blob.type });
+      // Try native share sheet first
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        navigator
+          .share({
+            files: [file],
+            title: "Save image",
+          })
+          .catch(() => {
+            // If user cancels or share fails, fallback
+            window.open(url, "_blank");
+          });
+      } else {
+        // Fallback: open in new tab
+        window.open(url, "_blank");
+      }
+      // Clean up later (important!)
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+    } else {
+      // Desktop / Android
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
   }
 
   useEffect(() => {
