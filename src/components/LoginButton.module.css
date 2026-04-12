@@ -1,0 +1,43 @@
+.root {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 8px;
+}
+
+.button {
+  height: 72px;
+  padding: 2rem;
+  font-family: var(--theme-font-family);
+  font-size: x-large;
+  color: var(--theme-primary-d70);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--theme-secondary);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
+  mask-image: url(../assets/socials-mask.png);
+  -webkit-mask-image: url(../assets/socials-mask.png);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
