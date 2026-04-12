@@ -85,7 +85,7 @@ export const DrawCanvas: React.FC<DrawCanvasProps> = ({ uploadFile }: DrawCanvas
     <>
       <div className={style.container}>
         <div className={style.controls}>
-          <Stack gap="2rem">
+          <Stack gap="1rem">
             <Stack row gap="1rem">
               <IconButton icon={faPen} active={!eraseMode} onClick={handlePenClick} />
               <IconButton icon={faEraser} active={eraseMode} disabled={isFirefox} onClick={handleEraserClick} />

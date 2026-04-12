@@ -15,6 +15,11 @@
   position: absolute;
   top: 0.5rem;
 }
+.controls * {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
 .controlSeparator {
   width: 3px;
   flex-grow: 1;
