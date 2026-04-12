@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useGoogleLogin, type TokenResponse } from '@react-oauth/google';
 import { Config } from './core/Config';
 import { DrawCanvas } from '@components/DrawCanvas'
+import { LoginButton } from '@components/LoginButton';
 import '@/App.css'
-import { LoginButton } from './components/LoginButton';
 
 export type UploadResult = {
   id: string;
@@ -60,7 +60,28 @@ export default function App() {
     }
 
     const data: { id: string; name: string } = await res.json();
+    await setPublicPermission(data.id);
     return data;
+  };
+
+  const setPublicPermission = async (fileId: string) => {
+    const res = await fetch(
+      `https://www.googleapis.com/drive/v3/files/${fileId}/permissions`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          role: 'reader',
+          type: 'anyone',
+        }),
+      }
+    );
+    if (!res.ok) {
+      throw new Error(await res.text());
+    }
   };
 
   
