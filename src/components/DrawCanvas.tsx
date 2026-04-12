@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ReactSketchCanvas, type ReactSketchCanvasRef } from "react-sketch-canvas";
 import { faEraser, faPen, faRedo, faSave, faTrash, faUndo } from '@fortawesome/free-solid-svg-icons'
-import type { UploadResult } from "@/App";
 import { Stack } from "@components/Stack";
 import { IconButton } from "@components/IconButton";
 import { ColourPicker } from "@components/ColourPicker";
@@ -11,7 +10,7 @@ import style from '@components/DrawCanvas.module.css';
 import { SpinnerOverlay } from "./SpinnerOverlay";
 
 type DrawCanvasProps = {
-  uploadFile: (file: File) => Promise<UploadResult>;
+  uploadFile: (file: File) => void;
 };
 
 export const DrawCanvas: React.FC<DrawCanvasProps> = ({ uploadFile }: DrawCanvasProps) => {
