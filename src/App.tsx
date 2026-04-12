@@ -5,20 +5,21 @@ import { DrawCanvas } from '@components/DrawCanvas'
 import SupabaseLogin from '@components/SupabaseLogin';
 import '@/App.css';
 
+export interface UploadResponse {
+  ok: boolean,
+  error?: string,
+}
+
 export default function App() {
   const user = useUser();
 
-  const uploadFile = async (file: File) => {
+  const uploadFile = async (file: File): Promise<UploadResponse> => {
     if (!user) {
-      alert("User not authenticated");
-      throw new Error("User not authenticated");
+      return { ok: false, error: "User not authenticated" };
     }
-    // Validate file type
     if (file.type !== "image/svg+xml") {
-      alert("Only SVG files are allowed");
-      throw new Error("Only SVG files are allowed");
+      return { ok: false, error: "Only SVG files are allowed" };
     }
-    // Upload to Supabase Storage
     const { error } = await supabase.storage
       .from(Config.BucketName)
       .upload(`${Config.UploadFolder}/${file.name}`, file, {
@@ -26,8 +27,9 @@ export default function App() {
         upsert: false,
       });
     if (error) {
-      throw error;
+      return { ok: false, error: error.message };
     }
+    return { ok: true };
   };
 
   if (!user) {

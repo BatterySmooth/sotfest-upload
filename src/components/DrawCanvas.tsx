@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { ReactSketchCanvas, type ReactSketchCanvasRef } from "react-sketch-canvas";
 import { faEraser, faPen, faRedo, faSave, faTrash, faUndo } from '@fortawesome/free-solid-svg-icons'
+import type { UploadResponse } from "@/App";
 import { Stack } from "@components/Stack";
 import { IconButton } from "@components/IconButton";
 import { ColourPicker } from "@components/ColourPicker";
 import { addColourToHistory, ColourHistory } from "@components/ColourHistory";
 import { Slider } from "@components/Slider";
+import { SpinnerOverlay } from "@components/SpinnerOverlay";
 import style from '@components/DrawCanvas.module.css';
-import { SpinnerOverlay } from "./SpinnerOverlay";
 
 type DrawCanvasProps = {
-  uploadFile: (file: File) => void;
+  uploadFile: (file: File) => Promise<UploadResponse>;
 };
 
 export const DrawCanvas: React.FC<DrawCanvasProps> = ({ uploadFile }: DrawCanvasProps) => {
@@ -49,23 +50,29 @@ export const DrawCanvas: React.FC<DrawCanvasProps> = ({ uploadFile }: DrawCanvas
   const handleResetClick = () => { canvasRef.current?.resetCanvas(); };
   const handleUploadClick = async () => {
     setUploading(true);
-    const svg = await canvasRef.current?.exportSvg();
-    if (!svg) {
-      alert('Failed to extract SVG. Please try again.');
+    const rawSvg = await canvasRef.current?.exportSvg();
+    if (!rawSvg) {
+      alert("Failed to extract SVG. Please try again.");
       setUploading(false);
       return;
     }
     const fileName = `${Date.now()}.svg`;
-    const blob = new Blob([svg], { type: 'image/svg+xml' });
+    const blob = new Blob([rawSvg], { type: 'image/svg+xml' });
     const file = new File([blob], fileName, { type: 'image/svg+xml' });
 
     try {
-      await uploadFile(file);
-      handleResetClick();
-      setUploading(false);
+      const response = await uploadFile(file);
+      if (!response.ok){
+        alert(response.error ?? "Unknown error occured");
+      }
+      else{
+        handleResetClick();
+      }
     } catch (err) {
       console.error(err);
       alert('Upload failed. Please try again.');
+    }
+    finally {
       setUploading(false);
     }
   };
