@@ -11,7 +11,7 @@ interface ColourHistoryProps {
 export const addColourToHistory = (
   history: string[],
   newColour: string,
-  max = 20
+  max = 10
 ): string[] => {
   const filtered = history.filter((c) => c !== newColour);
   return [newColour, ...filtered].slice(0, max);

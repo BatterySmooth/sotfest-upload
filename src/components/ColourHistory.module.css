@@ -2,16 +2,16 @@
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-  align-items: flex-start;
-  max-width: 352px;
-  min-width: 352px;
+  align-items: center;
+  max-width: 472px;
+  min-width: 472px;
 }
 
 .swatch {
-  width: 28px;
-  height: 28px;
+  width: 40px;
+  height: 40px;
   border-radius: 6px;
-  border: 2px solid rgba(0, 0, 0, 0.2);
+  border: none;
   cursor: pointer;
   padding: 0;
   transition: transform 0.1s ease, box-shadow 0.1s ease;
