@@ -9,6 +9,7 @@ import { addColourToHistory, ColourHistory } from "@components/ColourHistory";
 import { Slider } from "@components/Slider";
 import { SpinnerOverlay } from "@components/SpinnerOverlay";
 import style from '@components/DrawCanvas.module.css';
+import { DraggableContainer } from "./DraggableContainer";
 
 type DrawCanvasProps = {
   uploadFile: (file: File) => Promise<UploadResponse>;
@@ -84,26 +85,6 @@ export const DrawCanvas: React.FC<DrawCanvasProps> = ({ uploadFile }: DrawCanvas
   return (
     <>
       <div className={style.container}>
-        <div className={style.controls}>
-          <Stack gap="1rem">
-            <Stack row gap="1rem">
-              <IconButton icon={faPen} active={!eraseMode} onClick={handlePenClick} />
-              <IconButton icon={faEraser} active={eraseMode} disabled={isFirefox} onClick={handleEraserClick} />
-              <ControlSeparator />
-              <ColourPicker value={penColor} onChangeComplete={handlePickColour} onOpenChange={(open) => setReadOnly(open)} />
-              {/* <div style={{maxWidth: "352px"}}> */}
-                <ColourHistory colours={colourHistory} onSelect={handlePickColour} />
-              {/* </div> */}
-              <ControlSeparator />
-              <IconButton icon={faUndo} onClick={handleUndoClick} />
-              <IconButton icon={faRedo} onClick={handleRedoClick} />
-              <IconButton icon={faSave} onClick={handleUploadClick} />
-              <ControlSeparator />
-              <IconButton icon={faTrash} backgroundColor="darkred" onClick={handleResetClick} />
-            </Stack>
-            <Slider value={strokeWidth} onChange={setStrokeWidth} min={1} max={75} />
-          </Stack>
-        </div>
         <ReactSketchCanvas
           ref={canvasRef}
           className={style.canvas}
@@ -116,6 +97,24 @@ export const DrawCanvas: React.FC<DrawCanvasProps> = ({ uploadFile }: DrawCanvas
           readOnly={readOnly}
           style={{ touchAction: "none" }} />
       </div>
+      <DraggableContainer>
+        <Stack gap="1rem">
+          <Stack row gap="1rem">
+            <IconButton icon={faPen} active={!eraseMode} onClick={handlePenClick} />
+            <IconButton icon={faEraser} active={eraseMode} disabled={isFirefox} onClick={handleEraserClick} />
+            <ControlSeparator />
+            <ColourPicker value={penColor} onChangeComplete={handlePickColour} onOpenChange={(open) => setReadOnly(open)} />
+            <ColourHistory colours={colourHistory} onSelect={handlePickColour} />
+            <ControlSeparator />
+            <IconButton icon={faUndo} onClick={handleUndoClick} />
+            <IconButton icon={faRedo} onClick={handleRedoClick} />
+            <IconButton icon={faSave} onClick={handleUploadClick} />
+            <ControlSeparator />
+            <IconButton icon={faTrash} backgroundColor="darkred" onClick={handleResetClick} />
+          </Stack>
+          <Slider value={strokeWidth} onChange={setStrokeWidth} min={1} max={75} />
+        </Stack>
+      </DraggableContainer>
       {uploading ? <SpinnerOverlay /> : ''}
     </>
   );

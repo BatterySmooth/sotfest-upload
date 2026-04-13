@@ -44,4 +44,8 @@
   --theme-secondary-d70: #2a1b02;
   --theme-secondary-d80: #140b01;
   --theme-secondary-d90: #030100;
+  /* General Styling */
+  --theme-radius-s: 4px;
+  --theme-radius-m: 6px;
+  --theme-radius-l: 8px;
 }

@@ -1,0 +1,47 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  pointer-events: none;
+}
+
+.box {
+  position: absolute;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  pointer-events: auto;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+.box:active {
+  cursor: grabbing;
+}
+
+.handle, .content {
+  display: flex;
+}
+
+.handle {
+  padding: 6px;
+  border-radius: var(--theme-radius-l) 0 0 var(--theme-radius-l);
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  background: var(--theme-secondary-d20);
+}
+
+.content {
+  padding: 0.5rem;
+  padding-left: 1rem;
+  border-radius: 0 var(--theme-radius-l) var(--theme-radius-l) 0;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  background: color-mix(in srgb, var(--theme-primary-d60) 50%, transparent);
+}

@@ -10,7 +10,7 @@
 .swatch {
   width: 40px;
   height: 40px;
-  border-radius: 6px;
+  border-radius: var(--theme-radius-m);
   border: none;
   cursor: pointer;
   padding: 0;
