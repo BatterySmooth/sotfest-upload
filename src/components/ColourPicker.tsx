@@ -20,7 +20,10 @@ export const ColourPicker: React.FC<ColourPickerProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [tempColor, setTempColor] = useState(value);
+  const [placement, setPlacement] = useState<"top" | "bottom">("bottom");
   const ref = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
 
   // Update temp colour
   useEffect(() => setTempColor(value), [value]);
@@ -29,7 +32,6 @@ export const ColourPicker: React.FC<ColourPickerProps> = ({
   useEffect(() => {
     onOpenChange?.(open);
   }, [open, onOpenChange]);
-
 
   // Close popover on click outside
   useEffect(() => {
@@ -45,15 +47,38 @@ export const ColourPicker: React.FC<ColourPickerProps> = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [tempColor, onChangeComplete]);
 
+  // Compute position on open
+  useEffect(() => {
+    if (!open) return;
+    const button = buttonRef.current;
+    if (!button) return;
+    const rect = button.getBoundingClientRect();
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const spaceAbove = rect.top;
+    const estimatedHeight = 250;
+    if (spaceBelow < estimatedHeight && spaceAbove > spaceBelow) {
+      setPlacement("top");
+    } else {
+      setPlacement("bottom");
+    }
+  }, [open]);
+
   return (
     <div ref={ref} style={{ position: "relative", display: "inline-block" }}>
 
-      <button onClick={() => setOpen((o) => !o)} className={buttonstyles.button}>
+      <button ref={buttonRef} onClick={() => setOpen((o) => !o)} className={buttonstyles.button}>
         <FontAwesomeIcon icon={faPalette} className={buttonstyles.icon} />
       </button>
 
       {open && (
-        <div className={style.popover} >
+        <div
+          ref={popoverRef}
+          className={style.popover}
+          style={{
+            top: placement === "bottom" ? "110%" : "auto",
+            bottom: placement === "top" ? "110%" : "auto",
+          }}
+        >
           <HexColorPicker
           color={tempColor}
             onChange={(c) => {

@@ -44,4 +44,6 @@
   flex: 1;
   min-width: 0;
   background: color-mix(in srgb, var(--theme-primary-d60) 50%, transparent);
+  -webkit-backdrop-filter: blur(10px) saturate(80%);
+  backdrop-filter: blur(10px) saturate(80%);
 }

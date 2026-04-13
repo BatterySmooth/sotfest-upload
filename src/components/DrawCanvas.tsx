@@ -8,8 +8,9 @@ import { ColourPicker } from "@components/ColourPicker";
 import { addColourToHistory, ColourHistory } from "@components/ColourHistory";
 import { Slider } from "@components/Slider";
 import { SpinnerOverlay } from "@components/SpinnerOverlay";
+import { DraggableContainer } from "@components/DraggableContainer";
 import style from '@components/DrawCanvas.module.css';
-import { DraggableContainer } from "./DraggableContainer";
+import { ConfirmDialog } from "./ConfirmDialog";
 
 type DrawCanvasProps = {
   uploadFile: (file: File) => Promise<UploadResponse>;
@@ -23,6 +24,7 @@ export const DrawCanvas: React.FC<DrawCanvasProps> = ({ uploadFile }: DrawCanvas
   const [colourHistory, setColourHistory] = useState<string[]>([]);
   const [strokeWidth, setStrokeWidth] = useState(10);
   const [uploading, setUploading] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
 
@@ -110,12 +112,17 @@ export const DrawCanvas: React.FC<DrawCanvasProps> = ({ uploadFile }: DrawCanvas
             <IconButton icon={faRedo} onClick={handleRedoClick} />
             <IconButton icon={faSave} onClick={handleUploadClick} />
             <ControlSeparator />
-            <IconButton icon={faTrash} backgroundColor="darkred" onClick={handleResetClick} />
+            <IconButton icon={faTrash} backgroundColor="darkred" onClick={() => {setConfirmDelete(true)}} />
           </Stack>
           <Slider value={strokeWidth} onChange={setStrokeWidth} min={1} max={75} />
         </Stack>
       </DraggableContainer>
-      {uploading ? <SpinnerOverlay /> : ''}
+      { confirmDelete && <ConfirmDialog
+        title='Clear Canvas'
+        content={"Are you sure you wish to clear the current canvas?\n\nThis cannot be undone!"}
+        onConfirm={() => {handleResetClick(); setConfirmDelete(false);}}
+        onCancel={() => {setConfirmDelete(false)}} /> }
+      { uploading && <SpinnerOverlay /> }
     </>
   );
 }

@@ -22,9 +22,8 @@
 .popover {
   animation: fadeIn 0.15s ease;
   position: absolute;
-  top: 110%;
   left: 0;
-  z-index: 1000;
+  z-index: 100;
   background: var(--theme-primary);
   padding: 0.5rem;
   border-radius: 8px;

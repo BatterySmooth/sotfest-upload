@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGripVertical } from "@fortawesome/free-solid-svg-icons";
 import styles from "@components/DraggableContainer.module.css";
@@ -13,7 +13,8 @@ type DraggableContainerProps = {
 };
 
 export const DraggableContainer: React.FC<DraggableContainerProps> = ({ children }) => {
-  const [position, setPosition] = useState<Position>({ x: 100, y: 100 });
+  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+  const [initialized, setInitialized] = useState(false);
   const dragging = useRef<boolean>(false);
   const offset = useRef<Position>({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,6 +23,19 @@ export const DraggableContainer: React.FC<DraggableContainerProps> = ({ children
   const clamp = (value: number, min: number, max: number) => {
     return Math.max(min, Math.min(value, max));
   };
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const box = boxRef.current;
+    if (!container || !box) return;
+    const containerRect = container.getBoundingClientRect();
+    const boxRect = box.getBoundingClientRect();
+    setPosition({
+      x: (containerRect.width - boxRect.width) / 2,
+      y: 16,
+    });
+    setInitialized(true);
+  }, []);
 
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     dragging.current = true;
@@ -50,7 +64,7 @@ export const DraggableContainer: React.FC<DraggableContainerProps> = ({ children
   };
 
   return (
-    <div ref={containerRef} className={styles.container}>
+    <div ref={containerRef} className={styles.container} style={{ visibility: initialized ? "visible" : "hidden" }}>
       <div ref={boxRef} className={styles.box} style={{ left: position.x, top: position.y }}>
         <div
           className={styles.handle}
