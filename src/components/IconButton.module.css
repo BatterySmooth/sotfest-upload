@@ -18,7 +18,7 @@
   background-color: var(--theme-primary-d20);
 }
 .icon {
-  color: white;
+  color: var(--theme-color);
   width: 65%;
   height: 65%;
   display: block;

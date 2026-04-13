@@ -39,7 +39,7 @@
 .button {
   width: 25%;
   font-size: x-large;
-  color: white;
+  color: var(--theme-color);
 }
 
 .cancelButton {
