@@ -9,8 +9,8 @@ import { addColourToHistory, ColourHistory } from "@components/ColourHistory";
 import { Slider } from "@components/Slider";
 import { SpinnerOverlay } from "@components/SpinnerOverlay";
 import { DraggableContainer } from "@components/DraggableContainer";
+import { ConfirmDialog } from "@components/ConfirmDialog";
 import style from '@components/DrawCanvas.module.css';
-import { ConfirmDialog } from "./ConfirmDialog";
 
 type DrawCanvasProps = {
   uploadFile: (file: File) => Promise<UploadResponse>;
